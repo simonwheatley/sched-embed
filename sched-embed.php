@@ -42,7 +42,16 @@ class Sched_Embed_Plugin {
 	public function do_shortcode( array $atts = null, $content = '' ) {
 
 		$shortcode = new Sched_Embed_Shortcode( get_the_ID(), $atts, $content );
-		return $shortcode->get_output();
+		$output    = $shortcode->get_output();
+
+		if ( is_wp_error( $output ) ) {
+			if ( current_user_can( 'edit_post', get_the_ID() ) )
+				return $output->get_error_message();
+			else
+				return '';
+		}
+
+		return $output;
 
 	}
 
@@ -113,10 +122,9 @@ class Sched_Embed_Shortcode {
 	function get_output() {
 
 		if ( !$this->get_att( 'url' ) or ( false === strpos( $this->get_att( 'url' ), '.sched.org' ) ) ) {
-			if ( current_user_can( 'edit_post', $this->get_post()->ID ) )
-				return sprintf( '<strong>%s</strong>', __( 'Sched Embed: Your shortcode should contain a sched.org URL.', 'sched-embed' ) );
-			else
-				return '';
+			return new WP_Error( 'invalid_url', sprintf( '<strong>%s</strong>',
+				__( 'Sched Embed: Your shortcode should contain a sched.org URL.', 'sched-embed' )
+			) );
 		}
 
 		switch ( $this->get_att( 'view' ) ) {
