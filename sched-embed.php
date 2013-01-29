@@ -116,6 +116,8 @@ class Sched_Embed_Shortcode {
 		$this->post_id = $post_id;
 		$this->content = $content;
 
+		if ( $this->get_att( 'width' ) )
+			$this->atts[ 'width' ] = absint( $this->get_att( 'width' ) );
 	}
 
 	/**
@@ -182,11 +184,18 @@ class Sched_Embed_Shortcode {
 	 *                         necessary JavaScript for the embed.
 	 */
 	function get_output() {
-
+		
 		if ( !$this->get_att( 'url' ) or ( false === strpos( $this->get_att( 'url' ), '.sched.org' ) ) ) {
 			return new WP_Error( 'invalid_url', sprintf( '<strong>%s</strong>',
 				__( 'Sched Embed: Your shortcode should contain a sched.org URL.', 'sched-embed' )
 			) );
+		}
+		
+		if ( ! is_null( $this->get_att( 'width' ) ) and ( 900 < $this->get_att( 'width' ) || 500 > $this->get_att( 'width' ) ) ) {
+			if ( current_user_can( 'edit_post', $this->get_post()->ID ) )
+				return sprintf( '<strong>%s</strong>', __( 'Sched Embed: If you specify a width, it should be between 500 and 900.', 'sched-embed' ) );
+			else
+				return '';
 		}
 
 		switch ( $this->get_att( 'view' ) ) {
@@ -225,7 +234,12 @@ class Sched_Embed_Shortcode {
 
 		}
 
-		$this->base_url = untrailingslashit( esc_url_raw( $this->get_att( 'url' ) ) );
+		// Clean up the URL, just in case there's 
+		// stuff in there we don't need.
+		$url = esc_url_raw( $this->atts['url'] );
+		$url = parse_url( $url, PHP_URL_SCHEME ) . '://' . parse_url( $url, PHP_URL_HOST );
+		$this->base_url = $url;
+
 		$this->url = $this->base_url . $suffix;
 
 		if ( empty( $this->content ) )
@@ -234,7 +248,7 @@ class Sched_Embed_Shortcode {
 		$atts = array();
 		$attributes = '';
 
-		if ( null !== $this->get_att( 'width' ) )
+		if ( ! is_null( $this->get_att( 'width' ) ) )
 			$atts['data-sched-width'] = $this->get_att( 'width' );
 
 		if ( in_array( $this->get_att( 'sidebar' ), array( 'no', 'false', '0' ) ) )
