@@ -71,6 +71,8 @@ class Sched_Embed_Shortcode {
 		$this->post_id = $post_id;
 		$this->content = $content;
 
+		if ( $this->get_att( 'width' ) )
+			$this->atts[ 'width' ] = absint( $this->get_att( 'width' ) );
 	}
 
 	function get_att( $att ) {
