@@ -169,7 +169,7 @@ class Sched_Embed_Shortcode {
 		$atts = array();
 		$attributes = '';
 
-		if ( null !== $this->get_att( 'width' ) )
+		if ( ! is_null( $this->get_att( 'width' ) ) )
 			$atts['data-sched-width'] = $this->get_att( 'width' );
 
 		if ( in_array( $this->get_att( 'sidebar' ), array( 'no', 'false', '0' ) ) )
