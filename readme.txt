@@ -99,8 +99,7 @@ If you don't specify this, the title of the event page will be used.
 
 == Screenshots ==
 
-1. The *Switch To* link on the Users screen
-2. The *Switch To* link on a user's profile
+1. An embedded event schedule
 
 == Upgrade Notice ==
 
