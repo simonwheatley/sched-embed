@@ -2,9 +2,9 @@
 /*
 Plugin Name:  Sched Embed
 Description:  Embed event content from sched.org into your WordPress site
+Plugin URI:   https://github.com/cftp/sched-embed
 Version:      1.0
-Author:       Code for the People
-Author URI:   http://codeforthepeople.com/
+Author:       <a href="http://codeforthepeople.com/">Code for the People</a> | Development sponsored by <a href="http://internetretailing.net/">Internet Retailing</a>
 Text Domain:  sched-embed
 Domain Path:  /languages/
 License:      GPL v2 or later
@@ -28,6 +28,12 @@ defined( 'ABSPATH' ) or die();
 if ( !class_exists( 'Sched_Embed_Plugin' ) ) {
 class Sched_Embed_Plugin {
 
+	/**
+	 * Class constructor. Set up some actions, filters and shortcodes.
+	 *
+	 * @author John Blackbourn
+	 * @return null
+	 */
 	private function __construct() {
 
 		add_action( 'init',     array( $this, 'load_textdomain' ) );
@@ -35,10 +41,24 @@ class Sched_Embed_Plugin {
 
 	}
 
+	/**
+	 * Register our text domain.
+	 *
+	 * @author John Blackbourn
+	 * @return null
+	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'sched-embed', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
+	/**
+	 * Shortcode callback function. Outputs the embed code.
+	 *
+	 * @author John Blackbourn
+	 * @param  array  $atts    Array of attributes in the shortcode.
+	 * @param  string $content Optional text content contained within the shortcode tags.
+	 * @return string          The shortcode output.
+	 */
 	public function do_shortcode( array $atts = null, $content = '' ) {
 
 		$shortcode = new Sched_Embed_Shortcode( get_the_ID(), $atts, $content );
@@ -55,6 +75,12 @@ class Sched_Embed_Plugin {
 
 	}
 
+	/**
+	 * Singleton instantiator/getter.
+	 *
+	 * @author John Blackbourn
+	 * @return Sched_Embed_Plugin The instance of our plugin object.
+	 */
 	public static function init() {
 		static $instance = null;
 		if ( null === $instance )
@@ -68,6 +94,15 @@ class Sched_Embed_Plugin {
 if ( !class_exists( 'Sched_Embed_Shortcode' ) ) {
 class Sched_Embed_Shortcode {
 
+	/**
+	 * Class constructor. Processes the shortcode attributes.
+	 *
+	 * @author John Blackbourn
+	 * @param  int    $post_id Current post ID.
+	 * @param  array  $atts    Array of attributes in the shortcode.
+	 * @param  string $content Optional text content contained within the shortcode tags.
+	 * @return null
+	 */
 	function __construct( $post_id, array $atts, $content = '' ) {
 
 		$this->atts = shortcode_atts( array(
@@ -82,16 +117,35 @@ class Sched_Embed_Shortcode {
 
 	}
 
-	function get_att( $att ) {
-		if ( isset( $this->atts[$att] ) )
-			return $this->atts[$att];
+	/**
+	 * Attribute getter.
+	 *
+	 * @author John Blackbourn
+	 * @param  string $name Attribute name.
+	 * @return string       Attribute value.
+	 */
+	function get_att( $name ) {
+		if ( isset( $this->atts[$name] ) )
+			return $this->atts[$name];
 		return null;
 	}
 
+	/**
+	 * Get the current post object.
+	 *
+	 * @author John Blackbourn
+	 * @return StdClass|WP_Post Current post object.
+	 */
 	function get_post() {
 		return get_post( $this->post_id );
 	}
 
+	/**
+	 * Fetches the contents of the <title> tag from the embed URL. Cached for 24 hours.
+	 *
+	 * @author John Blackbourn
+	 * @return string Embed URL page title. Falls back to the embed URL on failure.
+	 */
 	function fetch_title() {
 
 		# http://core.trac.wordpress.org/ticket/15058
@@ -119,6 +173,13 @@ class Sched_Embed_Shortcode {
 
 	}
 
+	/**
+	 * Returns the output for the shortcode content.
+	 *
+	 * @author John Blackbourn
+	 * @return WP_Error|string Shortcode output, or a WP_Error object on failure. Also enqueues the
+	 *                         necessary JavaScript for the embed.
+	 */
 	function get_output() {
 
 		if ( !$this->get_att( 'url' ) or ( false === strpos( $this->get_att( 'url' ), '.sched.org' ) ) ) {
@@ -204,4 +265,3 @@ class Sched_Embed_Shortcode {
 }
 
 Sched_Embed_Plugin::init();
-
