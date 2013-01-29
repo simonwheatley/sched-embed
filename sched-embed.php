@@ -113,10 +113,17 @@ class Sched_Embed_Shortcode {
 	}
 
 	function get_output() {
-
+		
 		if ( !$this->get_att( 'url' ) or ( false === strpos( $this->get_att( 'url' ), '.sched.org' ) ) ) {
 			if ( current_user_can( 'edit_post', $this->get_post()->ID ) )
 				return sprintf( '<strong>%s</strong>', __( 'Sched Embed: Your shortcode should contain a sched.org URL.', 'sched-embed' ) );
+			else
+				return '';
+		}
+		
+		if ( ! is_null( $this->get_att( 'width' ) ) and ( 900 < $this->get_att( 'width' ) || 500 > $this->get_att( 'width' ) ) ) {
+			if ( current_user_can( 'edit_post', $this->get_post()->ID ) )
+				return sprintf( '<strong>%s</strong>', __( 'Sched Embed: If you specify a width, it should be between 500 and 900.', 'sched-embed' ) );
 			else
 				return '';
 		}
