@@ -191,7 +191,7 @@ class Sched_Embed_Shortcode {
 			) );
 		}
 		
-		if ( ! is_null( $this->get_att( 'width' ) ) and ( 900 < $this->get_att( 'width' ) || 500 > $this->get_att( 'width' ) ) ) {
+		if ( ! is_null( $this->get_att( 'width' ) ) and ( 990 < $this->get_att( 'width' ) || 500 > $this->get_att( 'width' ) ) ) {
 			if ( current_user_can( 'edit_post', $this->get_post()->ID ) )
 				return sprintf( '<strong>%s</strong>', __( 'Sched Embed: If you specify a width, it should be between 500 and 900.', 'sched-embed' ) );
 			else
