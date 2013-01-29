@@ -75,7 +75,7 @@ You can specify the width of the embed using the `width` attribute:
 
 `[sched url="example.sched.org" width="500"]`
 
-Note that sched.org only supports widths of 500, 600, 700, 800, 900 and 990 (pixels). Other widths may or may not work.
+Note that sched.org only supports widths of 500, 600, 700, 800 and 900 (pixels). The default width is 990 pixels.
 
 = Can I hide the sidebar in the embed? =
 
