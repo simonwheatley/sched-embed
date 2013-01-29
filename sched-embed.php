@@ -59,7 +59,7 @@ class Sched_Embed_Plugin {
 	 * @param  string $content Optional text content contained within the shortcode tags.
 	 * @return string          The shortcode output.
 	 */
-	public function do_shortcode( array $atts = null, $content = '' ) {
+	public function do_shortcode( $atts = null, $content = '' ) {
 
 		$shortcode = new Sched_Embed_Shortcode( get_the_ID(), $atts, $content );
 		$output    = $shortcode->get_output();
@@ -103,7 +103,7 @@ class Sched_Embed_Shortcode {
 	 * @param  string $content Optional text content contained within the shortcode tags.
 	 * @return null
 	 */
-	function __construct( $post_id, array $atts, $content = '' ) {
+	function __construct( $post_id, $atts, $content = '' ) {
 
 		$this->atts = shortcode_atts( array(
 			'url'        => null,
