@@ -10,7 +10,11 @@ Embed event content from sched.org into your WordPress site.
 
 == Description ==
 
-This plugin allows you to quickly swap between user accounts in WordPress at the click of a button. You'll be instantly logged out and logged in as your desired user. This is handy for test environments where you regularly log out and in between different accounts, or for adminstrators of sites who need to switch between multiple accounts.
+Embed event content from sched.org into your WordPress site. Due to WordPress security restrictions, the Sched embed method will not work at all when used on a WordPress multisite setup, in single site setups users with an Author or Contributor role will also be unable to use the Sched embed method.
+
+This plugin provides a shortcode which allows you to embed event content from sched.org into your WordPress site.
+
+Plugin development was sponsored by [Internet Retailing](http://internetretailing.net).
 
 == Installation ==
 
