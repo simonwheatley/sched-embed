@@ -155,7 +155,12 @@ class Sched_Embed_Shortcode {
 
 		}
 
-		$this->base_url = untrailingslashit( esc_url_raw( $this->get_att( 'url' ) ) );
+		// Clean up the URL, just in case there's 
+		// stuff in there we don't need.
+		$url = esc_url_raw( $this->atts['url'] );
+		$url = parse_url( $url, PHP_URL_SCHEME ) . '://' . parse_url( $url, PHP_URL_HOST );
+		$this->base_url = $url;
+
 		$this->url = $this->base_url . $suffix;
 
 		if ( empty( $this->content ) )
