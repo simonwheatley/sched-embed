@@ -89,6 +89,8 @@ You can specify a colour scheme which is suitable for use on a dark background b
 
 `[sched url="example.sched.org" background="dark"]`
 
+Note that this does not put a dark background behind the schedule, it simply changes the text colour to be suitable for a dark background if your site has one.
+
 = Can I specify the fallback text? =
 
 You can specify the fallback text which will be shown to users who have JavaScript disabled:
@@ -96,11 +98,6 @@ You can specify the fallback text which will be shown to users who have JavaScri
 `[sched url="example.sched.org"]View my event on sched.org[/sched]`
 
 If you don't specify this, the title of the event page will be used.
-
-== Screenshots ==
-
-1. The *Switch To* link on the Users screen
-2. The *Switch To* link on a user's profile
 
 == Upgrade Notice ==
 
