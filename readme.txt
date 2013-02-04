@@ -1,5 +1,5 @@
 === Sched Embed ===
-Contributors: cftp, johnbillion, simonwheatley
+Contributors: codeforthepeople, johnbillion, simonwheatley
 Tags: sched, sched.org, embed, shortcode
 Requires at least: 3.4
 Tested up to: 3.5
@@ -103,12 +103,19 @@ You can specify the fallback text which will be shown to users who have JavaScri
 
 If you don't specify this, the title of the event page will be used.
 
+== Screenshots ==
+
+1. An embedded event schedule
+
 == Upgrade Notice ==
 
-= 1.0 =
-* Initial release.
+= 1.0.1 =
+* Allow `[sched.org]` to be used as the shortcode in addition to `[sched]`
 
 == Changelog ==
+
+= 1.0.1 =
+* Allow `[sched.org]` to be used as the shortcode in addition to `[sched]`
 
 = 1.0 =
 * Initial release.
