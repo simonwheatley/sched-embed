@@ -10,9 +10,9 @@ Embed event content from sched.org into your WordPress site.
 
 == Description ==
 
-Due to WordPress security restrictions, the Sched embed method will not work at all when used on a WordPress multisite setup, in single site setups users with an Author or Contributor role will also be unable to use the Sched embed method.
-
 This plugin provides a shortcode which allows you to embed event content from sched.org into your WordPress site.
+
+Due to WordPress security restrictions, Authors and Contributors on your site will be unable to use the standard embed code provided by sched.org. If you use WordPress Multisite then nobody on your site will be able to use the standard embed code at all. This plugin allows you to embed event content from sched.org using a simple shortcode instead.
 
 Plugin development was sponsored by [Internet Retailing](http://internetretailing.net).
 
